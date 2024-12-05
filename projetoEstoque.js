@@ -97,7 +97,12 @@ let produtos = [
     preco: 69.9,
   },
 ]
-let novoId = Mathmax(produtos.id)
+let novoId = produtos.reduce((maxId, produto) => {
+  return Math.max(maxId, produto.id)
+}, 0)
+let valorTotalativo = produtos.reduce((total, produto) => {
+  return total + produto.quantidade * produto.preco
+}, 0)
 
 // Declarei as funcionalidades para não precisar reescreve-las sempre
 let funcionalidades = `1) Mostrar o estoque completo. 
@@ -189,10 +194,15 @@ do {
         console.log("Caso 4")
         break
       case 5:
-        console.log("Caso 5")
+        console.log("\n\n")
+        console.log(
+          `Valor total de Estoque ativo é de R$${valorTotalativo},00 \n`
+        )
+        console.log("Deseja realizar outra tarefa?")
+        console.log("\n")
         break
       case 6:
-        console.log("Caso 5")
+        console.log("Caso 6")
         break
       case 7:
         console.log("Aplicação encerrada.")
