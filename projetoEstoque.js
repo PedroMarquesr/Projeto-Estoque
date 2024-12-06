@@ -100,9 +100,6 @@ let produtos = [
 let novoId = produtos.reduce((maxId, produto) => {
   return Math.max(maxId, produto.id)
 }, 0)
-let valorTotalativo = produtos.reduce((total, produto) => {
-  return total + produto.quantidade * produto.preco
-}, 0)
 
 // Declarei as funcionalidades para não precisar reescreve-las sempre
 let funcionalidades = `1) Mostrar o estoque completo. 
@@ -175,11 +172,7 @@ do {
           // Pergunta se o usuário deseja verificar outro item
           verificar_outro_item = Number(
             entradaDados
-              .question(
-                `Deseja verificar outro item?
-                1) Sim
-                2) Não\n`
-              )
+              .question("Deseja verificar outro item ? \n1) Sim\n2) Não\n")
               .trim()
           )
           console.log("\n\n")
@@ -189,40 +182,50 @@ do {
         console.log("\n")
         break
       case 3:
-        console.log("Cadastrando itens \n\n")
+        console.log("\n")
+        console.log("Cadastro de item".padEnd(34, "."))
+        console.log("\n")
+
         let adicionar_outro_item
 
         do {
           let nome_nproduto = entradaDados.question(
             `Informe o nome do item: \n`
           )
+          console.log("\n")
           let preco_nproduto = entradaDados.question(
             "Informe o preço do item: \n"
           )
+          console.log("\n")
           let quantidade_nproduto = entradaDados.question(
             "Informe a quantidade de entrada no estoque \n"
           )
-          console.log("\n\n")
+          console.log("\n")
           let novo_produto = {
             id: novoId,
             nome: nome_nproduto,
             preco: preco_nproduto,
             quantidade: quantidade_nproduto,
           }
+          novoId++
 
           console.log("produto adicionado")
           console.log(novo_produto)
 
           produtos.push(novo_produto)
-          adicionar_outro_item = Number(
-            entradaDados
-              .question(
-                `Deseja adicionar outr item?
-                 1) Sim
-                 2) Não\n`
+
+          do {
+            adicionar_outro_item = Number(
+              entradaDados
+                .question("Deseja adicionar outro item?\n1)Sim \n2)Não\n")
+                .trim()
+            )
+            if (adicionar_outro_item !== 1 && adicionar_outro_item !== 2) {
+              console.log(
+                "Opção invalida \n Digite (1) Para 'Sim' ou (2) para 'Não'\n"
               )
-              .trim()
-          )
+            }
+          } while (adicionar_outro_item !== 1 && adicionar_outro_item !== 2)
         } while (adicionar_outro_item !== 2)
         console.log("Deseja realizar outra tarefa?")
         console.log("\n")
@@ -231,6 +234,9 @@ do {
         console.log("Caso 4")
         break
       case 5:
+        let valorTotalativo = produtos.reduce((total, produto) => {
+          return total + produto.quantidade * produto.preco
+        }, 0)
         console.log("\n\n")
         console.log(
           `Valor total de Estoque ativo é de R$${valorTotalativo},00 \n`
