@@ -189,6 +189,43 @@ do {
         console.log("\n")
         break
       case 3:
+        console.log("Cadastrando itens \n\n")
+        let adicionar_outro_item
+
+        do {
+          let nome_nproduto = entradaDados.question(
+            `Informe o nome do item: \n`
+          )
+          let preco_nproduto = entradaDados.question(
+            "Informe o preço do item: \n"
+          )
+          let quantidade_nproduto = entradaDados.question(
+            "Informe a quantidade de entrada no estoque \n"
+          )
+          console.log("\n\n")
+          let novo_produto = {
+            id: novoId,
+            nome: nome_nproduto,
+            preco: preco_nproduto,
+            quantidade: quantidade_nproduto,
+          }
+
+          console.log("produto adicionado")
+          console.log(novo_produto)
+
+          produtos.push(novo_produto)
+          adicionar_outro_item = Number(
+            entradaDados
+              .question(
+                `Deseja adicionar outr item?
+                 1) Sim
+                 2) Não\n`
+              )
+              .trim()
+          )
+        } while (adicionar_outro_item !== 2)
+        console.log("Deseja realizar outra tarefa?")
+        console.log("\n")
         break
       case 4:
         console.log("Caso 4")
